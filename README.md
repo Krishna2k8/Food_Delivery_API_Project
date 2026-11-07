@@ -1,4 +1,4 @@
-# Food Delivery API
+# Food Delivery API Project
 
 A complete classroom project for a food-delivery service. Customers place orders from restaurants, restaurants manage their menus and update order stages, and an admin manages records and views the report. The project uses **FastAPI, Pydantic and JSON files only**. It has no database, front end, real login, payment gateway, OTP, maps or internet dependency.
 
