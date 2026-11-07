@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+restaurants.json
+menu_items.json
+customers.json
+orders.json
+*.corrupt
