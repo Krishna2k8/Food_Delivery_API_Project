@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiffin Run - Food Delivery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div>
+      <h1>Tiffin Run</h1>
+      <p>Food delivery across Bangalore</p>
+    </div>
+  </div>
+  <nav class="roles" aria-label="Who is using the app">
+    <span class="roles-label">Using the app as</span>
+    <button data-role="" class="role">Guest</button>
+    <button data-role="customer" class="role">Customer</button>
+    <button data-role="restaurant" class="role">Restaurant</button>
+    <button data-role="admin" class="role">Admin</button>
+  </nav>
+</header>
+
+<div class="layout">
+  <main id="main" aria-live="polite"></main>
+
+  <aside class="log" aria-label="What the API answered">
+    <div class="log-head">
+      <h2>What the API answered</h2>
+      <button id="clear-log" class="link">Clear</button>
+    </div>
+    <p class="log-hint">Every click on this page is one request to the FastAPI server in main.py. The newest is on top.</p>
+    <ol id="log-list"></ol>
+  </aside>
+</div>
+
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
