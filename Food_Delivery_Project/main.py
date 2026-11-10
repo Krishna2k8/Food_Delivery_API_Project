@@ -151,19 +151,37 @@ def save_data(path, data):
         json.dump(data, file, indent=2, ensure_ascii=False)
 
 
+def starter_copy(starter):
+    """A fresh copy of the starter list (so the starter itself never changes)."""
+    starting_list = []
+    for item in starter:
+        starting_list.append(dict(item))
+    return starting_list
+
+
 def load_data(path, starter):
-    """Read a list from a JSON file. If the file does not exist yet, create it
-    from `starter` (a copy, so that the starter list itself never changes)."""
+    """Read a list from a JSON file. If the file does not exist yet, or it is
+    damaged, start again from `starter`. A bad file never crashes the server."""
     if not os.path.exists(path):
-        starting_list = []
-        for item in starter:
-            starting_list.append(dict(item))
+        starting_list = starter_copy(starter)
         save_data(path, starting_list)
         return starting_list
-    # EXCEPTION HANDLING (a later class): if the file is damaged, json.load
-    # crashes here. A try/except around this block is where you will handle it.
-    with open(path, "r", encoding="utf-8") as file:
-        return json.load(file)
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        if type(data) is not list:
+            raise ValueError("the file does not contain a list")
+        return data
+    except (ValueError, OSError) as error:
+        # ValueError: the text in the file is not good JSON (or not a list).
+        # OSError:    the file could not be opened or read at all.
+        print("WARNING: could not read " + path + " (" + str(error) + ")")
+        print("         The bad file is kept as " + path + ".damaged")
+        print("         Starting again from the starter data.")
+        os.replace(path, path + ".damaged")
+        starting_list = starter_copy(starter)
+        save_data(path, starting_list)
+        return starting_list
 
 
 # Load everything ONCE when the server starts. From now on these four lists
